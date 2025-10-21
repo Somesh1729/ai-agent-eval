@@ -1,0 +1,92 @@
+AI Agent Evaluation Framework
+
+Prompt:
+
+Build a professional full-stack web application called AI Agent Evaluation Dashboard.
+Stack: Next.js 14 (App Router) + TypeScript + Tailwind CSS + Shadcn UI for frontend, Supabase for backend (Auth + Postgres + RLS), deployed on Vercel.
+
+Functionality Requirements:
+
+Authentication & User Management
+
+Users must log in/sign up via Supabase Auth.
+
+Each user should only see their own data using Supabase Row-Level Security (RLS).
+
+Evaluation Configuration
+
+Users can create/update evaluation settings:
+
+run_policy (string): options always or sampled.
+
+sample_rate_pct (number, 0–100).
+
+obfuscate_pii (boolean).
+
+max_eval_per_day (number).
+
+API for Evaluation Ingestion
+
+Endpoint: POST /api/evals/ingest.
+
+Accepts JSON payload:
+
+{
+  "interaction_id": "string",
+  "prompt": "string",
+  "response": "string",
+  "score": 0-1,
+  "latency_ms": "number",
+  "flags": ["string"],
+  "pii_tokens_redacted": "number",
+  "created_at": "ISO timestamp"
+}
+
+
+Save each record to Supabase under the logged-in user.
+
+Dashboard
+
+Display:
+
+KPIs: Average score, avg latency, redaction rate, success rate.
+
+Charts: Line charts showing 7-day and 30-day trends (score, latency, flags).
+
+Filter: By date or flags.
+
+Clicking on a row opens detailed view (prompt, response, score, latency, flags, PII masked if enabled).
+
+Database Schema
+
+eval_settings table:
+
+id (UUID), user_id, run_policy, sample_rate_pct, obfuscate_pii, max_eval_per_day, created_at
+
+evals table:
+
+id (UUID), user_id, interaction_id, prompt, response, score, latency_ms, flags (array), pii_tokens_redacted, created_at
+
+Performance
+
+Handle 20,000+ eval rows efficiently using indexing and pagination.
+
+Seed Data
+
+Include a TypeScript script to generate 500–1000 random evaluations per user using Faker.js.
+
+Deployment
+
+Deploy frontend on Vercel.
+
+Connect Supabase backend securely with environment variables.
+
+UX
+
+Polished Tailwind + Shadcn UI dashboard with responsive design.
+
+Extras (Optional)
+
+Table search and sort functionality.
+
+Hover effects on charts.
