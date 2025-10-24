@@ -51,7 +51,7 @@
     "@replit/vite-plugin-cartographer": "latest",
     "@replit/vite-plugin-dev-banner": "latest",
     "@replit/vite-plugin-runtime-error-modal": "latest",
-    "@shared/schema": "file:../shared/schema",
+    "@shared/schema": "file:./shared/schema",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "@tanstack/react-query": "latest",
